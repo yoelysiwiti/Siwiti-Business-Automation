@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Siwiti Business Automation{% endblock %}</title>
+    <style>
+        body { font-family: system-ui, sans-serif;
+             max-width: 960px;
+              margin: 2rem auto; 
+              padding: 0 1rem;
+              background: rgb(191, 191, 204);
+             }
+
+
+
+        input, textarea { width: 100%;
+             max-width: 360px;
+              padding: .4rem; 
+            }
+
+        table { border-collapse: collapse;
+             width: 100%;
+             }
+        th, td {
+             border: 1px solid #ccc; 
+             padding: .4rem .6rem;
+              text-align: left; }
+        .flash {
+             background: #fff4d6; 
+             border: 1px solid #e6c860; 
+             padding: .5rem 1rem;
+              margin-bottom: 1rem; }
+
+        .content{
+            background: yellow;
+            padding: 10%;
+            border: 1px solid grey;
+            border-radius: 7px;
+            height:auto;
+            width:auto;
+        }
+
+        .content a{
+            height: auto;
+            width: auto;
+            background: rgb(192, 233, 44);
+            margin: 5%;
+            cursor: pointer;
+            border: 20px;
+            border-radius: 7px;
+            text-decoration: none;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="content">
+        {% with messages = get_flashed_messages() %}
+        {% for m in messages %}<div class="flash">{{ m }}</div>{% endfor %}
+    {% endwith %}
+        {% block heading %}{% endblock %}
+
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

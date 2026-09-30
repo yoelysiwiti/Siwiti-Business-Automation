@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Business Automation Dashboard</h1>
+<h2>Overview</h2>
+<p>Total Customers: <strong>{{ total_customers }}</strong></p>
+<p>Pending: <strong>{{ pending_customers }}</strong></p>
+<p>High Priority: <strong>{{ high_priority }}</strong></p>
+
+<form method="POST" action="{{ url_for('reprocess') }}">
+    <button type="submit">Reprocess All Customers</button>
+</form>
+
+<h2>Customers</h2>
+{% if customers %}
+<table>
+    <tr>
+        <th>ID</th><th>First Name</th><th>Middle Name</th><th>Last Name</th>
+        <th>Email</th><th>Message</th><th>Category</th><th>Priority</th><th>Status</th>
+    </tr>
+    {% for c in customers %}
+    <tr>
+        <td>{{ c["id"] }}</td>
+        <td>{{ c["first_name"] }}</td>
+        <td>{{ c["second_name"] }}</td>
+        <td>{{ c["last_name"] }}</td>
+        <td>{{ c["email"] }}</td>
+        <td>{{ c["message"] }}</td>
+        <td>{{ c["category"] }}</td>
+        <td>{{ c["priority"] }}</td>
+        <td>{{ c["status"] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No customers found.</p>
+{% endif %}
+<p><a href="{{ url_for('logout') }}">Log out</a></p>
+<p><strong style="color:red">Note :</strong>Bado sijaweka responsive kwenye screen,<br>Not yet in phone screen </p>
+{% endblock %}
