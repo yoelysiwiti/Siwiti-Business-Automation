@@ -121,6 +121,7 @@ def get_all_customers():
     return rows
 
 
+
 def get_stats():
     connection = get_connection_business()
     total = connection.execute("SELECT COUNT(*) FROM customers").fetchone()[0]

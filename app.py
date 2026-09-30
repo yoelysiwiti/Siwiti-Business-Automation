@@ -77,7 +77,6 @@ def customer_registration():
 
 
 #====================customer login, inatumia customer_id ====================
-
 @app.route("/customer_login", methods=["GET", "POST"])
 def customer_login():
     if request.method == "POST":

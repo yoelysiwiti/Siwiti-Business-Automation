@@ -54,3 +54,5 @@ def reprocess_all_customers():
 
     connection.commit()
     connection.close()
+
+
