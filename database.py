@@ -17,7 +17,7 @@ def get_connection_staff():
     connection.row_factory = sqlite3.Row
     return connection
 
-
+#============Used once to create database and table====
 def create_database_business():
     connection = get_connection_business()
     connection.execute("""
@@ -37,6 +37,8 @@ def create_database_business():
     connection.commit()
     connection.close()
 
+
+#============Used once to create database of staff and table
 def create_database_staff():
     connection = get_connection_staff()
     connection.execute("""
@@ -56,7 +58,7 @@ def init_databases():
     create_database_staff()
 
 
-# ---------- customers ----------
+#==========When user register it run=================
 def insert_customers(first_name, second_name, last_name, email,
                      hash_password, message, category, priority):
     connection = get_connection_business()
@@ -71,7 +73,7 @@ def insert_customers(first_name, second_name, last_name, email,
     finally:
         connection.close()
 
-# ---------- Staff na admin,(hawana html ya kuregister wanawekwa kwenye mfumo manually)  ----------
+# ============== Staff na admin,(hawana html ya kuregister wanawekwa kwenye mfumo manually)  ========
 def insert_staff(membership_number,
                      hash_password):
     connection = get_connection_staff()

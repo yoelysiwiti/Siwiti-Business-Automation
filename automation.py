@@ -1,8 +1,11 @@
+#=================This file determine how message relate to catehory=======
+
+
 def analyze_message(message):
 
     message = message.lower()
 
-    # Decide category, kuongeza maneno
+    #============ Decide category, various words option should be done ===========
     if "payment" in message or "money" in message:
         category = "Payment"
 
@@ -18,7 +21,7 @@ def analyze_message(message):
     else:
         category = "General"
 
-    # Determine priority, maneno pia
+    #=================== Determine priority, maneno pia
     if "urgent" in message or "problem" in message or "complaint" in message:
         priority = "High"
     else:
