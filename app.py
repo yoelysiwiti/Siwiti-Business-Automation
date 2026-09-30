@@ -75,7 +75,9 @@ def customer_registration():
     return render_template("customer_registration.html")
 
 
-#====================customer login, inatumia customer_id====================
+
+#====================customer login, inatumia customer_id ====================
+
 @app.route("/customer_login", methods=["GET", "POST"])
 def customer_login():
     if request.method == "POST":

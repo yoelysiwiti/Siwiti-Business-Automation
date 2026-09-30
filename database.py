@@ -5,13 +5,13 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_DIR = os.path.join(BASE_DIR, "database")
 os.makedirs(DB_DIR, exist_ok=True)
 
-
+#===========connect to busness.db===========
 def get_connection_business():
     connection = sqlite3.connect(os.path.join(DB_DIR, "business.db"))
     connection.row_factory = sqlite3.Row
     return connection
 
-
+#===========connect to staff.db===========
 def get_connection_staff():
     connection = sqlite3.connect(os.path.join(DB_DIR, "staff.db"))
     connection.row_factory = sqlite3.Row
