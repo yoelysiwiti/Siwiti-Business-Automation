@@ -1,28 +1,30 @@
-import os
+#=============imports of various files, zingine za ku install kama vile Flask
+
 import sqlite3
 from functools import wraps
 
 
 from flask import (Flask, render_template, request, redirect,
                    session, url_for, flash)
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash #==security==
 
-from database import (init_databases, insert_customers, get_customer_by_email, get_customer_by_name,
-                      get_customer_by_id, get_all_customers, get_stats,
+from database import (init_databases, insert_customers, get_customer_by_email, get_all_customers, get_stats,
                       get_staff_by_membership)
 from automation import analyze_message, reprocess_all_customers
 
 from datetime import timedelta
 
+
+#============the whole flask controlled by "app"================
 app = Flask(__name__)
-app.config["SESSION_PERMANENT"] = False
-app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=1)
+app.config["SESSION_PERMANENT"] = False #==not in session all time
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=1) #=====Baada  ya dakika 1 it logout(session over
 app.secret_key = "my_app_secret_key"
 
 init_databases()
 
 
-# ---------- access control ----------
+#======================access control==================
 def staff_required(view):
     @wraps(view)
     def wrapped(*args, **kwargs):
@@ -43,12 +45,12 @@ def customer_required(view):
     return wrapped
 
 
-# ---------- public ----------
+#===================The first page to all(Home page)===========
 @app.route("/")
 def home():
     return render_template("index.html")
 
-
+#===================Enable customer to put their information into database==============
 @app.route("/customer_registration", methods=["GET", "POST"])
 def customer_registration():
     if request.method == "POST":
@@ -73,7 +75,7 @@ def customer_registration():
     return render_template("customer_registration.html")
 
 
-# ---------- customer ----------
+#====================customer login, inatumia customer_id====================
 @app.route("/customer_login", methods=["GET", "POST"])
 def customer_login():
     if request.method == "POST":
@@ -90,7 +92,7 @@ def customer_login():
     return render_template("customer_login.html")
 
 
-# ---------- staff ----------
+#==============function ya staff login, inatumia staff_id================
 @app.route("/staff_login", methods=["GET", "POST"])
 def staff_login():
     if request.method == "POST":
@@ -105,6 +107,7 @@ def staff_login():
     return render_template("staff_login.html")
 
 
+#====================Admini pekee ataona users in hi or has dashboard while logged in================
 @app.route("/admin_dashboard")
 @staff_required
 def admin_dashboard():
@@ -119,7 +122,6 @@ def admin_dashboard():
 @app.route("/customer_dashboard")
 def customer_dashboard():
     if "customer_id" in session:
-        name = customer_login()
         return render_template("customer_dashboard.html")
 
     return redirect(url_for("customer_login"))
@@ -133,7 +135,7 @@ def reprocess():
     return redirect(url_for("admin_dashboard"))
 
 
-# ---------- shared ----------
+# ---------- It logout both staff and customer ----------
 @app.route("/logout")
 def logout():
     session.clear()
